@@ -41,5 +41,6 @@ module.exports = function(fbDir) {
 		}
 	});
 
+
 	return ads;
 };
