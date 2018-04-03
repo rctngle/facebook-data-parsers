@@ -1,0 +1,24 @@
+{
+  "name": "facebook-data-parsers",
+  "version": "1.0.0",
+  "description": "",
+  "main": "messages.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/rctngle/facebook-data-parsers.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/rctngle/facebook-data-parsers/issues"
+  },
+  "homepage": "https://github.com/rctngle/facebook-data-parsers#readme",
+  "dependencies": {
+    "fs": "0.0.1-security",
+    "jsdom": "^11.6.2",
+    "moment": "^2.22.0"
+  }
+}
