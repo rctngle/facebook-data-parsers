@@ -1,4 +1,4 @@
-# facebook-data-parsers
+# Facebook data parsers
 
 1. Clone or download this reposity
 2. Download your Facebook data
