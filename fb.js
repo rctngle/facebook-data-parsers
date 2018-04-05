@@ -24,7 +24,7 @@ const parsers = {
 	applications: getApplications,
 };
 
-const fbDir = __dirname + '/facebook/lizzie';
+const fbDir = __dirname + '/facebook';
 let exportSet = (process.argv.length > 2) ? process.argv[2] : false;
 
 for (let set in parsers) {
