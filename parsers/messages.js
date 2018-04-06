@@ -50,7 +50,7 @@ module.exports = function(fbDir) {
 
 					const date = child.querySelector('.meta').textContent;
 					const m = moment(date, config.dateFormat);
-					const timestamp = m.format('X');
+					const timestamp = parseInt(m.format('X'));
 
 					message = {
 						user: child.querySelector('.user').textContent,

@@ -21,7 +21,7 @@ module.exports = function(fbDir) {
 			
 			if (matches === null) {
 				meta.date = item;
-				meta.timestamp = moment(item, config.dateFormat).format('X');
+				meta.timestamp = parseInt(moment(item, config.dateFormat).format('X'));
 
 			} else {
 				meta[matches[1]] = matches[2];

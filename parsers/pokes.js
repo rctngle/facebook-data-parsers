@@ -23,7 +23,7 @@ module.exports = function(fbDir) {
 				poke.poke = el.textContent;
 			} else if (el.classList.contains('meta')) {
 				const date = el.textContent;
-				const timestamp = moment(date, config.dateFormat).format('X');
+				const timestamp = parseInt(moment(date, config.dateFormat).format('X'));
 				poke.date = date;
 				poke.timestamp = timestamp;
 			}

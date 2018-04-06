@@ -23,7 +23,7 @@ module.exports = function(fbDir) {
 			const m = moment(postEntries[0], config.dateFormat);
 			const post = {
 				date: postEntries[0],
-				timestamp: m.format('X'),
+				timestamp: parseInt(m.format('X')),
 				message: '',
 				comments: [],
 			};

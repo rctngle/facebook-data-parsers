@@ -20,11 +20,13 @@ module.exports = function(fbDir) {
 		};
 
 		const meta = [];
-		item.querySelector('.meta').childNodes.forEach(function(m) {
-			if (m.nodeType === 3) {
-				meta.push(m.textContent);
-			}
-		});
+		if (item.querySelector('.meta') !== null) {
+			item.querySelector('.meta').childNodes.forEach(function(m) {
+				if (m.nodeType === 3) {
+					meta.push(m.textContent);
+				}
+			});
+		}
 
 		let dateIdx;
 		if (meta.length === 3) {
@@ -40,8 +42,8 @@ module.exports = function(fbDir) {
 			const dates = meta[dateIdx].split(' - ');	
 			event.startDate = dates[0];
 			event.endDate = dates[1];
-			event.startTimestamp = moment(event.startDate, config.dateFormat).format('X');
-			event.endTimestamp = moment(event.startDate, config.dateFormat).format('X');
+			event.startTimestamp = parseInt(moment(event.startDate, config.dateFormat).format('X'));
+			event.endTimestamp = parseInt(moment(event.startDate, config.dateFormat).format('X'));
 		}
 	
 		events.push(event);		

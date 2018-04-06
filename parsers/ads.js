@@ -30,7 +30,7 @@ module.exports = function(fbDir) {
 				
 				if (item.querySelector('.meta') !== null) {
 					entry.date = item.querySelector('.meta').textContent;
-					entry.timestamp = moment(entry.date, config.dateFormat).format('X');	
+					entry.timestamp = parseInt(moment(entry.date, config.dateFormat).format('X'));	
 				}
 
 				section.entries.push(entry);

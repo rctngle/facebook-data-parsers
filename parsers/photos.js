@@ -39,7 +39,7 @@ module.exports = function(fbDir) {
 			if (meta !== null) {
 				const date = meta.textContent;
 				const m = moment(date, config.dateFormat);
-				const timestamp = m.format('X');
+				const timestamp = parseInt(m.format('X'));
 
 				photo.date = date;
 				photo.timestamp = timestamp;
@@ -54,7 +54,7 @@ module.exports = function(fbDir) {
 			el.querySelectorAll('.comment').forEach(function(com) {
 				const date = com.querySelector('.meta').textContent;
 				const m = moment(date, config.dateFormat);
-				const timestamp = m.format('X');
+				const timestamp = parseInt(m.format('X'));
 
 				const comment = {
 					from: com.querySelector('.user').textContent,

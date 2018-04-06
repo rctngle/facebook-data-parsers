@@ -26,7 +26,7 @@ module.exports = function(fbDir) {
 				list.querySelectorAll('li').forEach(function(item) {
 					const match = (item.textContent.match(/(.*)\((.*)\)/i));
 					const date = match[2];
-					const timestamp = moment(date, config.dateFormatShort).format('X');
+					const timestamp = parseInt(moment(date, config.dateFormatShort).format('X'));
 					friendGroup.friends.push({
 						name: match[1].trim(),
 						date: date,
