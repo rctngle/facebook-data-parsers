@@ -14,3 +14,22 @@
 npm install
 node fb
 ```
+
+## Data sets
+
+- ads
+- applications
+- events
+- friends
+- messages
+- photos
+- pokes
+- profile
+- security
+- timeline
+
+To export an a single dataset:
+
+```
+node fb timeline
+```
