@@ -27,63 +27,67 @@ module.exports = function(fbDir) {
 			conversation: [],
 		};
 
-		var threadContent = fs.readFileSync(`${fbDir}/${threadPage}`, 'utf8').toString();
+		console.log(threadPage);
 
-		const threadDom = new JSDOM(threadContent);
-		const threadDoc = threadDom.window.document;
-		let message = {};
-		
-		threadDoc.querySelector('.thread').childNodes.forEach((child) => {
-			if (child.nodeType === 3) {
-				const contents = child.textContent.replace(/Participants: /gi, '');
-				const participants = contents.split(', ');
-				participants.forEach((participant) => {
-					if (participant.trim() !== '') {
-						thread.participants.push(participant.trim());
+		const threadDir = `${fbDir}/${threadPage}`;
+		if (fs.existsSync(threadDir)){
+			const threadContent = fs.readFileSync(threadDir, 'utf8').toString();
+			const blocks = threadContent.split('<div class="message">');
+			blocks.forEach((block) => {
+				if (block.indexOf('message_header') >= 0) {
+					const msgBlock = '<div class="message">' + block;
+					const msgDom = new JSDOM(msgBlock);
+					const msgDoc = msgDom.window.document;
+
+					const message = {};
+					if (msgDoc.querySelector('.user') !== null) {
+						const user = msgDoc.querySelector('.user').textContent;	
+						if (thread.participants.indexOf(user) < 0) {
+							thread.participants.push(user);
+							message.user = user;
+						}
 					}
-				});
-			} else {
-				if (child.tagName === 'DIV' && child.classList.contains('message')) {
+
+					if (msgDoc.querySelector('.meta') !== null) {
+						const date = msgDoc.querySelector('.meta').textContent;
+						const m = moment(date, config.dateFormat);
+						const timestamp = parseInt(m.format('X'));
+						message.date = date;
+						message.timestamp = timestamp;
+						message.messages = [];
+					}
+
+					msgDoc.querySelector('body').childNodes.forEach((child) => {
+						if (child.tagName === 'P') {
+							child.childNodes.forEach((paraChild) => {
+								if (paraChild.nodeType === 3 || paraChild.tagName === 'SPAN') {
+									if (paraChild.textContent.trim() !== '') {
+										message.messages.push({ text: paraChild.textContent.trim() });
+									}
+								} else if (paraChild.tagName === 'IMG') {
+									message.messages.push({ image: paraChild.getAttribute('src') });
+								} else if (paraChild.tagName === 'AUDIO') {
+									message.messages.push({ audio: paraChild.getAttribute('src') });
+								} else if (paraChild.tagName === 'VIDEO') {
+									message.messages.push({ video: paraChild.getAttribute('src') });
+								} else if (paraChild.tagName === 'A') {
+									message.messages.push({ link: paraChild.getAttribute('href'), text: paraChild.textContent });
+								} else {
+									// console.log(paraChild, paraChild.tagName, paraChild.innerHTML);
+								}
+							});
+						}
+					});
+
 					if (Object.keys(message).length > 0) {
 						thread.conversation.push(message);	
 					}
 
-					const date = child.querySelector('.meta').textContent;
-					const m = moment(date, config.dateFormat);
-					const timestamp = parseInt(m.format('X'));
-
-					message = {
-						user: child.querySelector('.user').textContent,
-						date: date,
-						timestamp: timestamp,
-						messages: [],
-					};
-				} else if (child.tagName === 'P') {
-					if (message.user !== undefined) {
-						child.childNodes.forEach((paraChild) => {
-							if (paraChild.nodeType === 3 || paraChild.tagName === 'SPAN') {
-								if (paraChild.textContent.trim() !== '') {
-									message.messages.push({ text: paraChild.textContent.trim() });
-								}
-							} else if (paraChild.tagName === 'IMG') {
-								message.messages.push({ image: paraChild.getAttribute('src') });
-							} else if (paraChild.tagName === 'AUDIO') {
-								message.messages.push({ audio: paraChild.getAttribute('src') });
-							} else if (paraChild.tagName === 'VIDEO') {
-								message.messages.push({ video: paraChild.getAttribute('src') });
-							} else if (paraChild.tagName === 'A') {
-								message.messages.push({ link: paraChild.getAttribute('href'), text: paraChild.textContent });
-							} else {
-								// console.log(paraChild, paraChild.tagName, paraChild.innerHTML);
-							}
-						});
-					}
 				}
-			}
-		});
-
-		threads.push(thread);
+			});
+		}
 		
+		threads.push(thread);		
 	});
 
 	return threads;

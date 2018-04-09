@@ -1,5 +1,5 @@
 
-const locale = 'en-GB';
+const locale = 'en';
 
 const dateFormats = {};
 dateFormats['en'] = 'dddd, MMMM D, YYYY at h:mm UTCZ';
