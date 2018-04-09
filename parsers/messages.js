@@ -92,7 +92,7 @@ module.exports = function(fbDir) {
 							} else if (paraChild.tagName === 'A') {
 								message.messages.push({ link: paraChild.getAttribute('href'), text: paraChild.textContent });
 							} else {
-								console.log(paraChild, paraChild.tagName, paraChild.innerHTML);
+								// console.log(paraChild, paraChild.tagName, paraChild.innerHTML);
 							}
 						});
 					}
