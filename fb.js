@@ -30,13 +30,15 @@ let exportSet = (process.argv.length > 2) ? process.argv[2] : false;
 for (let set in parsers) {
 	if (set === exportSet || !exportSet) {
 		const result = parsers[set](fbDir);
-		const outputDir = './data';
-		
-		if (!fs.existsSync(outputDir)){
-			fs.mkdirSync(outputDir);
-		}
 
-		fs.writeFileSync('./data/' + set + '.json', JSON.stringify(result));
+		if (set !== 'messages') {
+			const outputDir = './data';
+
+			if (!fs.existsSync(outputDir)){
+				fs.mkdirSync(outputDir);
+			}
+
+			fs.writeFileSync('./data/' + set + '.json', JSON.stringify(result));
+		}
 	}
 }
-
