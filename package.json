@@ -19,6 +19,7 @@
   "dependencies": {
     "fs": "0.0.1-security",
     "jsdom": "^11.6.2",
-    "moment": "^2.22.0"
+    "moment": "^2.22.0",
+    "sqlite3": "^4.0.0"
   }
 }
