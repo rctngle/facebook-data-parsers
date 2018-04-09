@@ -9,13 +9,13 @@ moment.locale(config.locale);
 
 module.exports = function(fbDir) {
 	// Create db if not exists
-	fs.writeFile('./data/messages.sqlite', '', { flag: 'wx' }, (err) => {
+	fs.writeFile('./data/messages.db', '', { flag: 'wx' }, (err) => {
 		if (err) {
 			return;
 		}
 	});
 
-	const db = new sqlite3.Database('./data/messages.sqlite');
+	const db = new sqlite3.Database('./data/messages.db');
 
 	db.serialize(function() {
 	  db.run("CREATE TABLE messages (threadNum varchar(255), threadPage varchar(255), threadDescription varchar(255), threadParticipants varchar(255), messageUser varchar(255), messageDate varchar(255), messageTimestamp varchar(255), messageMessages varchar(255))");
