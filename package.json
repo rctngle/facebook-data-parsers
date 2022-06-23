@@ -18,7 +18,7 @@
   "homepage": "https://github.com/rctngle/facebook-data-parsers#readme",
   "dependencies": {
     "fs": "0.0.1-security",
-    "jsdom": "^11.10.0",
+    "jsdom": "^16.5.0",
     "moment": "^2.22.1"
   }
 }
