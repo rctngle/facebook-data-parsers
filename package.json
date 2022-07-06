@@ -19,6 +19,6 @@
   "dependencies": {
     "fs": "0.0.1-security",
     "jsdom": "^11.10.0",
-    "moment": "^2.22.1"
+    "moment": "^2.29.4"
   }
 }
